@@ -1,56 +1,78 @@
 describe('my awesome website', function() {
-browser.url('http://localhost:5000/');
-	it('should do some chai assertions', function() {
-		console.log("executing the tests:" + browser.getTitle());
-		browser.getTitle().should.be.equal('React HN');
-		browser.pause(3000);
-	});
-	it('should click on comment section', function() {
-		browser.click('a:nth-child(4)');
-		browser.pause(3000);
-	});
-	it('should click link', function() {
-		browser.click('=link');
-		browser.pause(5000);
-	});
-	it('should click parent', function() {
-		browser.click('=parent');
-		browser.pause(5000);
-	});
-	it('should click view on Hacker News', function() {
-		browser.click('=view on Hacker News');
-		browser.pause(3000);
-		browser.back();
-		browser.pause(3000);
-	});
-	it('should click reply', function() {
-		browser.click('=reply');
-		browser.pause(3000);
-	});
-	it('should click Forgot Password', function() {
-		browser.click('=Forgot your password?');
-		browser.pause(3000);
-		browser.back();
-		browser.pause(3000);
-		browser.back();
-		browser.pause(3000);
-	});
-	it('should click comments', function() {
-		browser.click('=comments');
-		browser.pause(3000);
-	});
-	it('should click on 2 parents', function() {
-		browser.click('=parent');
-		browser.pause(5000);
-		browser.click('=parent');
-		browser.pause(5000);
-	});
-	it('should click view on Hacker News', function() {
-		browser.click('=view on Hacker News');
-		browser.pause(3000);
-		browser.back();
-		browser.back();
-		browser.back();
-		browser.pause(3000);
-	});
+	before(function(){
+        browser.url('http://localhost:5000');
+    });
+	
+// *************************************** Checking comments page ***********************
+
+    // opening comments page
+    it("should open comments page",function(){
+        $('.App__header').$$('a')[3].click();
+        browser.getTitle().should.be.equal('New Comments | React HN');
+        browser.pause(5000);
+    });
+
+    // to open all profiles
+    it("should open all profiles in comments page",function(){
+        var profiles = $('.Updates');
+        count = 0;
+        for(var i in profiles){
+            $('.Updates').$$('.Comment')[count].$$('a')[0].click();
+            count++;
+            browser.pause(1000);
+            browser.back();
+            browser.pause(1000);
+        }
+    });
+
+    //to open all the link
+    it("should open all link in the comments page",function(){
+        var links = $('.Updates');
+        count = 0;
+        for(var i in links){
+            $('.Updates').$$('.Comment')[count].$$('a')[1].click();
+            count++;
+            browser.pause(1000);
+            browser.back();
+            browser.pause(1000);
+        }
+    });
+
+    //to open all the parents link
+    it("should open all parent in the comments page",function(){
+        var parents = $('.Updates');
+        count = 0;
+        for(var i in parents){
+            try{
+            $('.Updates').$$('.Comment')[count].$$('a')[2].click();
+            browser.pause(1000);
+            browser.back();
+            browser.pause(1000);
+            }
+            catch(err){
+                console.log("parent not found for this particular thread");
+            }
+            count++;
+        }
+    });
+
+    //to open all the topics
+    it("should open all topics in the comments page",function(){
+        var topics = $('.Updates');
+        count = 0;
+        for(var i in topics){
+            try{
+            $('.Updates').$$('.Comment')[count].$$('a')[3].click();
+            browser.pause(1000);
+            browser.back();
+            browser.pause(1000);
+            }
+            catch(err){
+                console.log("topics not found for this particular thread");
+            }
+            count++;
+        }
+    });
+
+//*************************** *************Done with Comments *****************************
 });

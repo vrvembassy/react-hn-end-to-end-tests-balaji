@@ -10,7 +10,7 @@ exports.config = {
      * specify test files
      */
     specs: [
-        './test/**/*.js'
+        './test/**/test_setting.js'
     ],
     exclude: [
     ],
@@ -32,7 +32,7 @@ exports.config = {
     waitforTimeout: 10000,
     framework: 'mocha',
 
-    reporters: ['dot'],
+    reporters: ['spec'],
     reporterOptions: {
         outputDir: './'
     },
@@ -48,7 +48,8 @@ exports.config = {
 	before: function() {
 		var chai = require('chai');
 		global.expect = chai.expect;
-		chai.Should();
+        chai.Should();
+        //browser.url('http://localhost:5000');
 	},
 	onPrepare: function() {
         console.log('let\'s go');

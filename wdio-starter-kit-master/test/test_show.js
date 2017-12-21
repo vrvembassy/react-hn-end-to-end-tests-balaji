@@ -1,88 +1,60 @@
 describe('my awesome website', function() {
-    it('should open React HN', function() {
+    before(function(){
         browser.url('http://localhost:5000');
-	    var title = browser.getTitle();
-        console.log('\n'+title);
-        browser.getTitle().should.be.equal('React HN');
+    });
+   // *************************************** Checking show page ******************************
+
+    // Opening show page
+    it("should open show page",function(){
+        $('.App__header').$$('a')[4].click();
+        browser.getTitle().should.be.equal('Show | React HN');
         browser.pause(1000);
     });
-    it('should open show',function(){
-        browser.url('http://localhost:5000');
-        browser.getTitle().should.be.equal('React HN');
-        browser.click('a:nth-child(5)');
-        var title = browser.getTitle();
-        console.log('\n'+title);
-        browser.getTitle().should.be.equal('Show | React HN');
-        browser.pause(3000);
-    });
-    it('should open first news in show ',function(){
-        browser.url('http://localhost:5000');
-        browser.getTitle().should.be.equal('React HN');
-        browser.pause(3000);
-        browser.click('a:nth-child(5)');
-        browser.pause(3000);
-        browser.element('li:first-child .Item__title a').click();
-        var title = browser.getTitle();
-        console.log( '\n'+title);
-        browser.pause(3000);
-    });
-    it('should open author of the first news in new ',function(){
-        browser.url('http://localhost:5000');
-        browser.getTitle().should.be.equal('React HN');
-        browser.pause(3000);
-        browser.click('a:nth-child(5)');
-        browser.pause(3000);
-        browser.element('li:first-child .Item__meta .Item__by a').click();
-        var title = browser.getTitle();
-        console.log( '\n'+title);
-        browser.pause(3000);
-    });
-    it('should open comments of the first news in new ',function(){
-        browser.url('http://localhost:5000');
-        browser.getTitle().should.be.equal('React HN');
-        browser.pause(3000);
-        browser.click('a:nth-child(5)');
-        browser.pause(3000);
-        browser.element('li:first-child .Item__meta').click('*=comments');
-        var title = browser.getTitle();
-        console.log('\n'+title);
-        browser.pause(3000);
-    });
-    it('should move to next page in show ',function(){
-        browser.url('http://localhost:5000');
-        browser.getTitle().should.be.equal('React HN');
-        browser.pause(3000);
-        browser.click('a:nth-child(5)');
-        browser.pause(3000);
-        browser.element('.Paginator__next a').click();
-        var title = browser.getTitle();
-        console.log('\n'+title);
-        browser.pause(3000);
-    });
-    it('should open reacthn git link',function(){
-        browser.url('http://localhost:5000');
-        browser.getTitle().should.be.equal('React HN');
-        browser.pause(3000);
-        browser.click('a:nth-child(5)');
-        browser.pause(3000);
-        browser.element('.App__footer a').click();
-        var title = browser.getTitle();
-        console.log('\n'+title);
-        browser.pause(3000);
-    });
-    it('should open news one by one in ask ',function(){
-        browser.url('http://localhost:5000');
-        browser.getTitle().should.be.equal('React HN');
-        browser.pause(3000);
-        browser.click('a:nth-child(5)');
-        browser.pause(3000);
-        for(i=2;i<10;i++){
-            browser.element('li:nth-child('+i+') .Item__title a').click();
-            var title = browser.getTitle();
-            console.log( '\n'+title);
-            browser.pause(3000);
+
+    //opening every heading in show page
+    it("should open every topic in show page",function(){
+        var showItems = $('.Items').$$('ol')[0];
+        count = 0;
+        for(var i in showItems){
+            $('.Items').$$('ol')[0].$$('li')[count].$$('a')[0].click();
+            count++;
+            browser.pause(1000);
             browser.back();
+            browser.pause(1000);
         }
     });
+
+    //opening all profiles in show page
+    it("should open profiles in show",function(){
+        var profiles = $('.Items').$$('ol')[0];
+        count = 0;
+        for(var i in profiles){
+            $('.Items').$$('ol')[0].$$('li')[count].$$('span')[1].$$('a')[0].click();
+            count++;
+            browser.pause(1000);
+            browser.back();
+            browser.pause(1000);
+        }
+    });
+
+    //opening every comment or discuss section in show page
+    it("should open either comments or discuss whichever is present",function(){
+        var comments = $('.Items').$$('ol')[0];
+        count = 0;
+        for(var i in comments){
+            try{
+            $('.Items').$$('ol')[0].$$('li')[count].$$('span')[1].$$('a')[1].click();
+            browser.pause(3000);
+            browser.back();
+            browser.pause(3000);
+            }
+            catch(err){
+                console.log("Neither discuss nor comments are present for this thread");
+            }
+            count++;
+        }
+    });
+
+// ************************************ Done with show************************************
 });
 
