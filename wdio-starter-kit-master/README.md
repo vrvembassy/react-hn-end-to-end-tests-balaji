@@ -10,7 +10,7 @@
 	 
 ### install webdriver and mocha 
 	
-	git clone https://github.com/krithiconsulting/wdio-starter-kit.git
+	git clone https://github.com/vrvembassy/react-hn-end-to-end-tests-balaji.git
 	npm install 
 
 ## run the tests 
