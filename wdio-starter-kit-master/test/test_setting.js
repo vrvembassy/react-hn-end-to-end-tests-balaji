@@ -1,7 +1,7 @@
 describe('my awesome website', function() {
     before(function(){
-        browser.url('http://localhost:5000');
-    });
+       browser.url('http://localhost:5000');
+    }); 
  // *************************************** Checking settings ******************************
 
 

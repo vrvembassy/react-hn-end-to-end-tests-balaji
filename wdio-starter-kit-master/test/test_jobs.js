@@ -1,24 +1,32 @@
 describe('my awesome website', function() {
+    var count;
+
     before(function(){
-        browser.url('http://localhost:5000');
+        count = Math.floor((Math.random() * 10) + 1);
+            browser.url('http://localhost:5000');
     });
-     // Opening jobs page
-     it('should open jobs',function(){
+     // ****************************************    checking jobs page ****************************
+
+    // Opening jobs page
+    it('should open jobs',function(){
         $('.App__header').$$('a')[6].click();
         browser.getTitle().should.be.equal('Jobs | React HN');
-        browser.pause(1000);
+        browser.pause(2000);
     });
 
-    //Opening every jobs in jobs page
-    it("should open all jobs",function(){
-        var jobItems = $('.Items').$$('ol')[0];
-        count = 0;
-        for(var i in jobItems){
+    //Opening a random job in jobs page
+    it("should open a random job",function(){
+        try{
             $('.Items').$$('ol')[0].$$('li')[count].$$('a')[0].click();
-            count++;
-            browser.pause(1000);
-            browser.back();
-            browser.pause(1000);
+        }
+        catch(err){
+            console.log("Job of following index is not available "+count);
         }
     });
+
+    it("to go back",function(){
+        browser.back();
+        browser.pause(2000);
+    });
+// *************************************** Done with jobs page ****************************
 });

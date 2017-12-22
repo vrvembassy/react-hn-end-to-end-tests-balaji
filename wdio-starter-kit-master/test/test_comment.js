@@ -1,76 +1,88 @@
 describe('my awesome website', function() {
-	before(function(){
-        browser.url('http://localhost:5000');
+    var count;
+
+    before(function(){
+        count = Math.floor((Math.random() * 10) + 1);
+           browser.url('http://localhost:5000');
     });
 	
+
 // *************************************** Checking comments page ***********************
 
     // opening comments page
     it("should open comments page",function(){
         $('.App__header').$$('a')[3].click();
         browser.getTitle().should.be.equal('New Comments | React HN');
-        browser.pause(5000);
     });
 
-    // to open all profiles
-    it("should open all profiles in comments page",function(){
-        var profiles = $('.Updates');
-        count = 0;
-        for(var i in profiles){
-            $('.Updates').$$('.Comment')[count].$$('a')[0].click();
-            count++;
-            browser.pause(1000);
-            browser.back();
-            browser.pause(1000);
+    // to open a random profile
+    it("should open a random profile in comments page",function(){
+        browser.pause(2000);
+        try{
+        $('.Updates').$$('.Comment')[count].$$('a')[0].click();
+        }
+        catch(err){
+            console.log("There is no profile for given index in comments page"+count);
         }
     });
 
-    //to open all the link
-    it("should open all link in the comments page",function(){
-        var links = $('.Updates');
-        count = 0;
-        for(var i in links){
-            $('.Updates').$$('.Comment')[count].$$('a')[1].click();
-            count++;
-            browser.pause(1000);
-            browser.back();
-            browser.pause(1000);
+    it("to go back",function(){
+        browser.back();
+        browser.pause(2000);
+    });
+
+    //to open a random the link
+    it("should open a random link in the comments page",function(){
+        browser.pause(2000);
+        try{
+        $('.Updates').$$('.Comment')[count].$$('a')[1].click();
+        }
+        catch(err){
+            console.log("There is no link for given index in comments page"+count);
         }
     });
 
-    //to open all the parents link
+    it("to go back",function(){
+        browser.back();
+        browser.pause(2000);
+    });
+
+    //to open a random parents link
     it("should open all parent in the comments page",function(){
-        var parents = $('.Updates');
-        count = 0;
-        for(var i in parents){
             try{
             $('.Updates').$$('.Comment')[count].$$('a')[2].click();
-            browser.pause(1000);
-            browser.back();
-            browser.pause(1000);
             }
             catch(err){
-                console.log("parent not found for this particular thread");
+                console.log("parent not found for this particular thread in comments page");
             }
-            count++;
-        }
     });
 
-    //to open all the topics
-    it("should open all topics in the comments page",function(){
-        var topics = $('.Updates');
-        count = 0;
-        for(var i in topics){
+    it("to go back",function(){
+        browser.back();
+        browser.pause(2000);
+    });
+
+    //to open a random the topic
+    it("should open a random topic in the comments page",function(){
             try{
             $('.Updates').$$('.Comment')[count].$$('a')[3].click();
-            browser.pause(1000);
-            browser.back();
-            browser.pause(1000);
             }
             catch(err){
-                console.log("topics not found for this particular thread");
+                console.log("topics not found for this particular thread in comments page");
             }
-            count++;
+    });
+
+    it("to go back",function(){
+        browser.back();
+        browser.pause(2000);
+    });
+
+    it("checking more button in comments",function(){
+        try{
+        $('.Updates').$$('.Paginator')[0].$$('a')[0].click();
+        }
+        catch(err){
+            console.log("No more button in comments page");
         }
     });
 

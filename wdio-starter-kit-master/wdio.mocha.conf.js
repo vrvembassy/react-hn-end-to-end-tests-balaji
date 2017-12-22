@@ -10,10 +10,12 @@ exports.config = {
      * specify test files
      */
     specs: [
-        './test/**/test_setting.js'
+        './test/**/test_show.js'
     ],
     exclude: [
     ],
+
+   
 
     /**
      * capabilities
@@ -49,7 +51,6 @@ exports.config = {
 		var chai = require('chai');
 		global.expect = chai.expect;
         chai.Should();
-        //browser.url('http://localhost:5000');
 	},
 	onPrepare: function() {
         console.log('let\'s go');
