@@ -2,7 +2,7 @@ describe('my awesome website', function() {
     var count;
 
     before(function(){
-        count = Math.floor((Math.random() * 10) + 1);
+        count = Math.floor((Math.random() * 10) % 6);
             browser.url('http://localhost:5000');
     });
      // ****************************************    checking jobs page ****************************
