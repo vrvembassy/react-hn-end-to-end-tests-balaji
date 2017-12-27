@@ -2,8 +2,9 @@ describe('my awesome website', function() {
     var count;
 
     before(function(){
-        count = Math.floor((Math.random() * 10) + 1);
-           browser.url('http://localhost:5000');
+           browser.url('#/newcomments');
+           var listItems = browser.elements('.Comment');
+			count = Math.floor((listItems.value.length)/2);
     });
 	
 
@@ -11,7 +12,7 @@ describe('my awesome website', function() {
 
     // opening comments page
     it("should open comments page",function(){
-        $('.App__header').$$('a')[3].click();
+        //$('.App__header').$$('a')[3].click();
         browser.getTitle().should.be.equal('New Comments | React HN');
     });
 
@@ -75,15 +76,6 @@ describe('my awesome website', function() {
     it("to go back",function(){
         browser.back();
         browser.pause(2000);
-    });
-
-    it("checking more button in comments",function(){
-        try{
-        $('.Updates').$$('.Paginator')[0].$$('a')[0].click();
-        }
-        catch(err){
-            console.log("No more button in comments page");
-        }
     });
 
 //*************************** *************Done with Comments *****************************

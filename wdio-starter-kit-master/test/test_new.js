@@ -2,8 +2,10 @@ describe('My React Application', function() {
     var count;
 
     before(function(){
-        count = Math.floor((Math.random() * 10) + 1);
-        browser.url('http://localhost:5000');
+      
+        browser.url('#/newest');
+        var listItems = browser.elements('.ListItem');
+			count = Math.floor((listItems.value.length)/2);
     });
    
 
@@ -11,7 +13,7 @@ describe('My React Application', function() {
 
     // Opening new page
     it("should open new page",function(){
-        $('.App__header').$$('a')[2].click();
+       // $('.App__header').$$('a')[2].click();
         browser.getTitle().should.be.equal('New Links | React HN');
     });
 
@@ -34,7 +36,7 @@ describe('My React Application', function() {
     //opening all profiles in new page
     it("should open a random profile in new page",function(){
         try{
-            $('.Items').$$('ol')[0].$$('li')[count].$$('span')[1].$$('a')[0].click();
+            $('.Items').$$('ol')[0].$$('li')[count].$$('span')[2].$$('a')[0].click();
         }
             catch(err){
             console.log("There is no profile for given index is new page"+count);
@@ -49,7 +51,7 @@ describe('My React Application', function() {
     //opening every comment or discuss section in new page
     it("should open either comments or discuss whichever is present in new page",function(){
             try{
-            $('.Items').$$('ol')[0].$$('li')[count].$$('span')[1].$$('a')[1].click();
+            $('.Items').$$('ol')[0].$$('li')[count].$$('a')[0].click();
             browser.back();
             browser.pause(2000);
             }
@@ -69,7 +71,7 @@ describe('My React Application', function() {
 
     it("checking previous button",function(){
         try{
-            $('Items').$$('Paginator')[0].$$('a')[0].click();
+            $('.Items').$$('.Paginator')[0].$$('.Paginator__prev')[0].$$('a')[0].click();
         }
         catch(err){
             console.log("No prev button in new page");

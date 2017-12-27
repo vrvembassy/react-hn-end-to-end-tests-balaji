@@ -2,16 +2,17 @@ describe('my awesome website', function() {
     var count;
 
     before(function(){
-        count = Math.floor((Math.random() * 10) + 1);
-            browser.url('http://localhost:5000');
+        count = Math.floor((Math.random() * 10) % 6);
+            browser.url('#/jobs');
     });
      // ****************************************    checking jobs page ****************************
 
     // Opening jobs page
     it('should open jobs',function(){
-        $('.App__header').$$('a')[6].click();
+       // $('.App__header').$$('a')[6].click();
         browser.getTitle().should.be.equal('Jobs | React HN');
         browser.pause(2000);
+        //browser.waitForVisible('.listItems');
     });
 
     //Opening a random job in jobs page
@@ -26,7 +27,7 @@ describe('my awesome website', function() {
 
     it("to go back",function(){
         browser.back();
-        browser.pause(2000);
+        browser.waitForVisible('.listItems--loading', 2000, true);
     });
 // *************************************** Done with jobs page ****************************
 });

@@ -10,7 +10,7 @@ exports.config = {
      * specify test files
      */
     specs: [
-        './test/**/test_show.js'
+        './test/**/*.js'
     ],
     exclude: [
     ],
@@ -27,10 +27,11 @@ exports.config = {
     /**
      * test configurations
      */
+    services: ['devtools'],
     logLevel: 'silent',
     coloredLogs: true,
     screenshotPath: 'shots',
-    baseUrl: '',
+    baseUrl: 'http://localhost:5000',
     waitforTimeout: 10000,
     framework: 'mocha',
 

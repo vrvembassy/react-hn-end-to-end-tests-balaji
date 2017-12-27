@@ -1,6 +1,6 @@
 describe('my awesome website', function() {
     before(function(){
-       browser.url('http://localhost:5000');
+      browser.url('');
     }); 
  // *************************************** Checking settings ******************************
 
@@ -8,12 +8,10 @@ describe('my awesome website', function() {
 /***********open React-hn**********************/
     it('should open React HN', function() {
         browser.getTitle().should.be.equal('React HN');
-        browser.pause(1000);
     });
 /***********open settings**********************/
     it('should be open settings',function(){
         browser.click('=settings');
-        browser.pause(3000);
     });
 /***********Auto collapse status change**********************/
     it('should change the autoCollapse checkbox status',function(){
@@ -21,15 +19,15 @@ describe('my awesome website', function() {
         var name = check1.getAttribute('name');
         if(check1.isSelected())
         {
-            console.log("\n"+name+":"+check1.isSelected());
+            //console.log("\n"+name+":"+check1.isSelected());
             check1.click();
-            console.log(name+":"+check1.isSelected());
+            //console.log(name+":"+check1.isSelected());
             browser.refresh();
         }
         else{
-            console.log("\n"+name+":"+check1.isSelected());
+           // console.log("\n"+name+":"+check1.isSelected());
             check1.click();
-            console.log(name+":"+check1.isSelected());
+            //console.log(name+":"+check1.isSelected());
             browser.refresh();
         }
     });
@@ -40,15 +38,15 @@ describe('my awesome website', function() {
         var name = check1.getAttribute('name');
         if(check1.isSelected())
         {
-            console.log("\n"+name+":"+check1.isSelected());
+            //console.log("\n"+name+":"+check1.isSelected());
             check1.click();
-            console.log(name+":"+check1.isSelected());
+            //console.log(name+":"+check1.isSelected());
             browser.refresh();
         }
         else{
-            console.log("\n"+name+":"+check1.isSelected());
+            //console.log("\n"+name+":"+check1.isSelected());
             check1.click();
-            console.log(name+":"+check1.isSelected());
+            //console.log(name+":"+check1.isSelected());
             browser.refresh();
         }
     });
@@ -59,15 +57,15 @@ describe('my awesome website', function() {
         var name = check1.getAttribute('name');
         if(check1.isSelected())
         {
-            console.log("\n"+name+":"+check1.isSelected());
+           // console.log("\n"+name+":"+check1.isSelected());
             check1.click();
-            console.log(name+":"+check1.isSelected());
+           // console.log(name+":"+check1.isSelected());
             browser.refresh();
         }
         else{
-            console.log("\n"+name+":"+check1.isSelected());
+           // console.log("\n"+name+":"+check1.isSelected());
             check1.click();
-            console.log(name+":"+check1.isSelected());
+           // console.log(name+":"+check1.isSelected());
             browser.refresh();
         }
     });
@@ -78,15 +76,15 @@ describe('my awesome website', function() {
         var name = check1.getAttribute('name');
         if(check1.isSelected())
         {
-            console.log("\n"+name+":"+check1.isSelected());
+           // console.log("\n"+name+":"+check1.isSelected());
            check1.click();
-           console.log(name+":"+check1.isSelected());
+           //console.log(name+":"+check1.isSelected());
            browser.refresh();
         }
         else{
-            console.log("\n"+name+":"+check1.isSelected());
+           // console.log("\n"+name+":"+check1.isSelected());
             check1.click();
-            console.log(name+":"+check1.isSelected());
+           // console.log(name+":"+check1.isSelected());
             browser.refresh();
         }
     });
@@ -97,24 +95,24 @@ describe('my awesome website', function() {
         var name = check1.getAttribute('name');
         if(check1.isSelected())
         {
-            console.log("\n"+name+":"+check1.isSelected());
+           // console.log("\n"+name+":"+check1.isSelected());
            check1.click();
-           console.log(name+":"+check1.isSelected());
+         //  console.log(name+":"+check1.isSelected());
            browser.refresh();
         }
         else{
-            console.log("\n"+name+":"+check1.isSelected());
+           // console.log("\n"+name+":"+check1.isSelected());
             check1.click();
-            console.log(name+":"+check1.isSelected());
+           // console.log(name+":"+check1.isSelected());
             browser.refresh();
         }
     });
 /*********** change text size **********************/
     it('should change the text size',function(){
+        browser.click('=settings');
         var text = $('#titleFontSize');
         text.setValue('45');
         browser.refresh();
-        browser.pause(3000);
         browser.click('=settings');
         var text = $('#titleFontSize');
         text.setValue('18');
@@ -126,13 +124,17 @@ describe('my awesome website', function() {
         var text = $('#listSpacing');
         text.setValue('0');
         browser.refresh();
-        browser.pause(3000);
         browser.click('=settings');
         var text = $('#listSpacing');
         text.setValue('18');
         browser.refresh();
         browser.click('=settings');
     });
+/**************** Should hide the settings ***********/
+    it('should hide the settings',function(){
+        browser.click('=hide settings');
+    });
+
 // ************************************ Done with settings ************************************
 });
     
