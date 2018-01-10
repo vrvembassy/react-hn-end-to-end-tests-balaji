@@ -6,7 +6,6 @@
   "scripts": {
     "test": "wdio wdio.mocha.conf.js"
   },
- 
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -16,5 +15,8 @@
     "selenium-standalone": "^6.12.0",
     "wdio-mocha-framework": "^0.5.12",
     "webdriverio": "^4.9.11"
+  },
+  "dependencies": {
+    "Faker": "^0.7.2"
   }
 }

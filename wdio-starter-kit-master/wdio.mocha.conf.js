@@ -10,7 +10,7 @@ exports.config = {
      * specify test files
      */
     specs: [
-        './test/**/*.js'
+        './test/specs/menus.spec.js'
     ],
     exclude: [
     ],
@@ -28,7 +28,7 @@ exports.config = {
     logLevel: 'silent',
     coloredLogs: true,
     screenshotPath: 'shots',
-    baseUrl: '',
+    baseUrl: 'localhost:5000/',
     waitforTimeout: 10000,
     framework: 'mocha',
 
@@ -39,7 +39,7 @@ exports.config = {
 
     mochaOpts: {
         ui: 'bdd',
-        timeout: 99999999
+        timeout : 99999999
     },
 
     /**
@@ -51,9 +51,9 @@ exports.config = {
 		chai.Should();
 	},
 	onPrepare: function() {
-        console.log('let\'s go');
+        console.log('Start');
     },
     onComplete: function() {
-        console.log('that\'s it');
+        console.log('End');
     }
 };
