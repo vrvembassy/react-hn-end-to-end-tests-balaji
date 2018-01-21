@@ -1,88 +1,92 @@
-describe('my awesome website', function() {
-    it('should open React HN', function() {
-        browser.url('http://localhost:5000');
-	    var title = browser.getTitle();
-        console.log('\n'+title);
-        browser.getTitle().should.be.equal('React HN');
-        browser.pause(1000);
+describe('Show page in ReactHN', function() {
+    var count;
+    var listItems,title;
+    
+    beforeEach(function(){
+             browser.url('#/show');
+             browser.waitForVisible('.ListItem--loading');
+             listItems = browser.elements('.ListItem');
+             count = Math.floor((listItems.value.length)/2);
     });
-    it('should open show',function(){
-        browser.url('http://localhost:5000');
-        browser.getTitle().should.be.equal('React HN');
-        browser.click('a:nth-child(5)');
-        var title = browser.getTitle();
-        console.log('\n'+title);
+   // *************************************** Checking show page ******************************
+
+    // Opening show page
+    it("should open show page",function(){
         browser.getTitle().should.be.equal('Show | React HN');
-        browser.pause(3000);
     });
-    it('should open first news in show ',function(){
-        browser.url('http://localhost:5000');
-        browser.getTitle().should.be.equal('React HN');
-        browser.pause(3000);
-        browser.click('a:nth-child(5)');
-        browser.pause(3000);
-        browser.element('li:first-child .Item__title a').click();
-        var title = browser.getTitle();
-        console.log( '\n'+title);
-        browser.pause(3000);
+
+    //opening a random heading in show page
+    it("should open a random topic in show page",function(){
+        title = listItems.value[count].$$('a')[0].getText();
+        //console.log(title);
+        listItems.value[count].$$('a')[0].click();
+        browser.getTitle().should.not.be.equal(' React HN');
+        browser.back();
+        browser.waitForVisible('.ListItem--loading');
+        browser.getTitle().should.be.equal('Show | React HN');
+
     });
-    it('should open author of the first news in new ',function(){
-        browser.url('http://localhost:5000');
-        browser.getTitle().should.be.equal('React HN');
-        browser.pause(3000);
-        browser.click('a:nth-child(5)');
-        browser.pause(3000);
-        browser.element('li:first-child .Item__meta .Item__by a').click();
-        var title = browser.getTitle();
-        console.log( '\n'+title);
-        browser.pause(3000);
+
+    //opening a random profile in show page
+    it("should open a random profile in show",function(){
+        title = listItems.value[count].$$('span')[2].$$('a')[0].getText();
+        //console.log(title);
+        listItems.value[count].$$('span')[2].$$('a')[0].click();
+        browser.waitForVisible('.UserProfile--loading'); 
+        //console.log(browser.getTitle());
+        browser.getTitle().should.be.equal('Profile: '+title+' | React HN'); 
+        browser.back();
+        browser.waitForVisible('.ListItem--loading');
+        browser.getTitle().should.be.equal('Show | React HN');
     });
-    it('should open comments of the first news in new ',function(){
-        browser.url('http://localhost:5000');
-        browser.getTitle().should.be.equal('React HN');
-        browser.pause(3000);
-        browser.click('a:nth-child(5)');
-        browser.pause(3000);
-        browser.element('li:first-child .Item__meta').click('*=comments');
-        var title = browser.getTitle();
-        console.log('\n'+title);
-        browser.pause(3000);
-    });
-    it('should move to next page in show ',function(){
-        browser.url('http://localhost:5000');
-        browser.getTitle().should.be.equal('React HN');
-        browser.pause(3000);
-        browser.click('a:nth-child(5)');
-        browser.pause(3000);
-        browser.element('.Paginator__next a').click();
-        var title = browser.getTitle();
-        console.log('\n'+title);
-        browser.pause(3000);
-    });
-    it('should open reacthn git link',function(){
-        browser.url('http://localhost:5000');
-        browser.getTitle().should.be.equal('React HN');
-        browser.pause(3000);
-        browser.click('a:nth-child(5)');
-        browser.pause(3000);
-        browser.element('.App__footer a').click();
-        var title = browser.getTitle();
-        console.log('\n'+title);
-        browser.pause(3000);
-    });
-    it('should open news one by one in ask ',function(){
-        browser.url('http://localhost:5000');
-        browser.getTitle().should.be.equal('React HN');
-        browser.pause(3000);
-        browser.click('a:nth-child(5)');
-        browser.pause(3000);
-        for(i=2;i<10;i++){
-            browser.element('li:nth-child('+i+') .Item__title a').click();
-            var title = browser.getTitle();
-            console.log( '\n'+title);
-            browser.pause(3000);
+
+   //opening a random comment or discuss section in show page
+    it("should open either comments or discuss whichever is present",function(){
+            title = listItems.value[count].$$('a')[0].getText();
+            //console.log(title);
+            listItems.value[count].$$('a')[2].click();
+           //console.log(browser.getTitle());
+            browser.waitForVisible('.Item__kids--loading');
+            browser.getTitle().should.be.equal(title + ' | React HN');
             browser.back();
-        }
+            browser.waitForVisible('.ListItem--loading');
+            browser.getTitle().should.be.equal('Show | React HN');
     });
+
+    it("checking for more button",function(){
+        if(browser.element('.Paginator__next'))
+        {   
+            len = listItems.value.length;
+            listItems.element('.Paginator').element('.Paginator__next').click();
+            start = browser.getAttribute('.Items__list','start');
+            start = parseInt(start);
+            start.should.be.equal(len+1);
+        }
+         else{
+             console.log("There is no more button in show page....");
+         }   
+    
+        });
+
+        it("checking for previous button",function(){
+            if(browser.element('.Paginator__prev'))
+            {
+              
+               // $('.Items').$$('.Paginator')[0].$$('a')[0].click();
+                listItems.element('.Paginator').element('.Paginator__next').click();
+                start = browser.getAttribute('.Items__list','start');
+                listItems.element('.Paginator').element('.Paginator__prev').click();
+                end = browser.getAttribute('.Items__list','start');
+                console.log(start);
+                end = parseInt(end);
+                listStart = start - 30;
+                listStart.should.be.equal(end);
+            }
+            else{
+                 console.log("There is no prev button in show page....");
+            }   
+        
+        });
+// ************************************ Done with show page ***************************
 });
 

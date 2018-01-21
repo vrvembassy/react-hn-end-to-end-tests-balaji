@@ -10,10 +10,12 @@ exports.config = {
      * specify test files
      */
     specs: [
-        './test/**/*.js'
+        './test/**/test_jobs.js'
     ],
     exclude: [
     ],
+
+   
 
     /**
      * capabilities
@@ -25,14 +27,15 @@ exports.config = {
     /**
      * test configurations
      */
+    services: ['devtools'],
     logLevel: 'silent',
     coloredLogs: true,
     screenshotPath: 'shots',
-    baseUrl: '',
+    baseUrl: 'http://localhost:5000',
     waitforTimeout: 10000,
     framework: 'mocha',
 
-    reporters: ['dot'],
+    reporters: ['spec'],
     reporterOptions: {
         outputDir: './'
     },
@@ -48,7 +51,7 @@ exports.config = {
 	before: function() {
 		var chai = require('chai');
 		global.expect = chai.expect;
-		chai.Should();
+        chai.Should();
 	},
 	onPrepare: function() {
         console.log('let\'s go');

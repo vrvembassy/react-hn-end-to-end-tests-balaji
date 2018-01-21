@@ -1,23 +1,31 @@
-describe('my awesome website', function() {
-    it('should open React HN', function() {
-        browser.url('http://localhost:5000');
-	    var title = browser.getTitle();
-        console.log('\n'+title);
-        browser.getTitle().should.be.equal('React HN');
-        browser.pause(1000);
+describe('Jobs page in React HN', function() {
+    var count,listItems,title;
+
+    beforeEach(function(){
+        count = Math.floor((Math.random() * 10) % 6);
+            browser.url('#/jobs');
+            browser.waitForVisible('.ListItem--loading');
+        listItems = browser.elements('.ListItems');
+           
     });
+   
+    // ****************************************    checking jobs page ****************************
+
+    // Opening jobs page
     it('should open jobs',function(){
-        browser.url('http://localhost:5000');
-        browser.getTitle().should.be.equal('React HN');
-        browser.click('a:nth-child(7)');
         browser.getTitle().should.be.equal('Jobs | React HN');
-        browser.pause(3000);
     });
-	it("open the 7th job",function(){
-        browser.url('http://localhost:5000');
-        browser.click('a:nth-child(7)');
-		browser.click('li:nth-child(7) .Item__title a');
-		//browser.getTitle().should.be.equal('Jobs at Stripe');
-		browser.pause(3000);
-	});
+
+    //Opening a random job in jobs page
+    it("should open a random job",function(){
+        title = listItems.value[count].$$('a')[0].getText();
+        //console.log(title);
+        listItems.value[count].$$('a')[0].click();
+        browser.getTitle().should.not.be.equal(' React HN');
+        browser.back();
+        browser.waitForVisible('.listItems--loading');
+        browser.getTitle().should.be.equal('Jobs | React HN');
+    });
+
+    // *************************************** Done with jobs page ****************************
 });
